@@ -70,3 +70,32 @@ inventor.toFixed()
 // 3.2.2 조건 검사를 통한 내로잉
 // 일반적으로 타입스크립트에서는 변수가 알려진 값과 같은지 확인하는 if문을 통해 변수의 값을 좁히는 방법을 사용한다.
 // 타입스크립트는 if문 내에서 변수가 알려진 값과 동일한 타입인지 확인한다.
+
+// scientist: number | string 타입
+let scientist = Math.random() > 0.5 ? 'Rosalind Franklin' : 51
+
+if (scientist === 'Rosalind Franklin') {
+    // scientist: string의 타입
+    scientist.toUpperCase()
+}
+// scientist: number | string의 타입
+scientist.toUpperCase()
+
+// 3.2.3 typeof 검사를 통한 내로잉
+// 타입스크립트는 직접 값을 확인해 타입을 좁히기도 하지만, typeof 연산자를 사용할 수도 있다.
+// scientist 예제와 유사하게 다음 if 문에서 typeof researcher가 'string'인지 확인해 타입스크립트에 researcher의 타입이 string임을 나타낸다.
+
+let researcher = Math.random() > 0.5 ? 'Rosalind Franklin' : 51
+
+if (!(typeof researcher === 'string')) {
+    researcher.toFixed() // OK: number
+} else {
+    researcher.toUpperCase() // OK: string
+}
+
+// 이러한 코드 스니펫은 타입 내로잉에서도 지원되는 삼항 연산자를 이용해 다시 작성할 수 있다.
+typeof researcher === 'string' ? researcher.toUpperCase() : researcher.toFixed()
+
+// 3.3 리터럴 타입
+// 두 개 이상의 잠재적 타입이 될 수 있는 값을 다루기 위해 유니언 타입과 내로잉을 살펴봤다.
+// 다음으로 리터럴 타입을 알아보자. 리터럴 타입은 좀 더 구체적인 버전의 원시타입이다.
