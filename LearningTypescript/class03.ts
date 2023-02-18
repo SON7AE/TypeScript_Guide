@@ -163,3 +163,27 @@ let rawDataSecond: RawData
 let rawDataThird: RawData
 
 // 훨씬 읽기 쉽다.
+
+// 3.5.1 타입 별칭은 자바스크립트가 아니다.
+// 타입 별칭은 타입 애너테이션처럼 자바스크립트로 컴파일되지 않는다. 순전히 타입스크립트 타입 시스템에만 존재한다.
+// 따라서 앞서 다룬 코드 스니펫은 다음 자바스크립트로 컴파일 된다.
+
+let rawDataFirst
+let rawDataSecond
+let rawDataThird
+
+// 타입 별칭은 순전히 타입 시스템에만 존재하므로 런타임 코드에서는 참조할 수 없다.
+// 타입스크립트는 런타임에 존재하지 않는 항목에 접근하려고 하면 타입 오류로 알려준다.
+
+type SomeType = string | undefined
+console.log(SomeType)
+
+// 다시 말하지만 타입 별칭은 순전히 '개발 시'에만 존재한다.
+
+// 3.5.2 타입 별칭 결합
+// 타입 별칭은 다른 타입 별칭을 참조할 수 있다.
+// 유니언 타입인 타입 별칭 내에 또 다른 유니언 타입인 타입 별칭을 포함하고 있다면 다른 타입 별칭을 참조하는 것이 유용하다.
+
+type Id = number | string
+// IdMaybe 타입은 다음과 같음: number | string | undefined | null
+type IdMaybe = Id | undefined | null
