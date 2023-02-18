@@ -99,3 +99,67 @@ typeof researcher === 'string' ? researcher.toUpperCase() : researcher.toFixed()
 // 3.3 리터럴 타입
 // 두 개 이상의 잠재적 타입이 될 수 있는 값을 다루기 위해 유니언 타입과 내로잉을 살펴봤다.
 // 다음으로 리터럴 타입을 알아보자. 리터럴 타입은 좀 더 구체적인 버전의 원시타입이다.
+
+const philosopher = 'Hypatia'
+
+// philosopher는 어떤 타입일까? 얼핏봐도 string 타입이라고 말할 수 있고 실제도로 string 타입이다.
+// 하지만 philosopher는 단지 string 타입이 아닌 'Hypatia'라는 특별한 값이다.
+// 따라서 변수 philosopher의 타입은 기술적으로 더 구체적인 'Hypatia'이다.
+// 이것이 바로 리터럴 타입의 개념이다. 원시 타입 값 중 어떤 것이 아닌 특정 원샷값으로 알려진 타입이 리터럴 타입이다.
+
+// 만약 변수를 const로 선언하고 직접 리터럴 값을 할당하면 타입스크립트는 해당 변수를 할당된 리터럴 값으로 유추한다.
+
+// 3.4 엄격한 null 검사
+// 리터럴로 좁혀진 유니언의 힘은 타입스크립트에서 엄격한 null 검사라 부르는 타입 시스템 영역인 '잠재적으로 정의되지 않은 undefined 값'으로 작업할 때 특히 두드러진다.
+// 타입스크립트는 두려운 '십억 달러의 실수'를 바로잡기 위해 엄격한 null 검사를 사용하며 이는 최신 프로그래밍 언어의 큰 변화 중 하나이다.
+
+// 3.4.1 십억 달러의 실수
+// '십업 달러의 실수'는 다른 타입이 필요한 위치에서 null 값을 사용하도록 허용하는 많은 타입시스템을 가리키는 업계 용어이다.
+// 엄격한 null 검사가 없는 언어에서는 다음 예제 코드처럼 string 타임 변수 null을 할당하는 것이 허용된다.
+
+const firstName: string = null
+
+// 3.4.3 초깃값이 없는 변수
+// 자바스크립트에서 초깃값이 없는 변수는 기본적으로 undefined가 된다.
+// 이는 타입 시스템에서 극단적인 경우를 나타내기도 한다.
+// 만일 undefined를 포함하지 않는 타입으로 변수를 선언한 다음, 값을 할당하기 전에 사용하려고 시도하면 어떻게 될까?
+
+let psychologist: string
+psychologist?.length // Error: Variable 'psychologist' is used before being assingned.
+
+psychologist = 'Mark Goldberg'
+psychologist.length // OK
+
+// 변수 타입에 undefined가 포함되어 있는 경우에는 오류가 보고되지 않는다.
+// 변수 타입에 | undefined를 추가하면, undefined는 유효한 타입이기 때문에 사용 전에는 정의할 필요가 없음을 타입스크립트에 나타낸다.
+
+let psychologist: string | undefined
+psychologist?.length // OK
+
+psychologist = 'Mark Goldberg'
+psychologist.length // OK
+
+// 3.5 타입 별칭
+// 코드에서 볼 수 있는 유니언 타입 대부분은 두세 개의 구성 요소만 갖는다.
+// 그러나 가끔 반복해서 입력하기 불편하나 조금 긴 형태의 유니언 타입을 발견할 수 있다.
+
+// 다음 각 변수는 5개의 가능한 타입 중 하나가 될 수 있다.
+let rawDataFirst: boolean | number | string | null | undefined
+
+// 타입스크립트에는 재사용하는 타입에 더 쉬운 이름은 할당하는 타입 별칭(type alias)이 있다.
+// 타입 별칭은 type 새로운 이름 = 타입 형태를 갖는다.
+// 편의상 타입 별칭은 파스칼케이스로 이름을 지정한다.
+
+type MyName = ...;
+
+// 타입 별칭은 타입 시스템의 '복사해서 붙여넣기'처럼 작동한다.
+// 타입스크립트가 타입 별칭을 발견하면 해당 별칭이 참조하는 실제 타입을 입력하는 것처럼 작동한다.
+// 앞서 살펴본 변수의 타입 애너테이션에서 상당히 길었던 유니언 타입을 타입 별칭을 사용해 다음과 같이 작성할 수 있다.
+
+type RawData = boolean | number | string | null | undefined
+
+let rawDataFirst: RawData
+let rawDataSecond: RawData
+let rawDataThird: RawData
+
+// 훨씬 읽기 쉽다.
