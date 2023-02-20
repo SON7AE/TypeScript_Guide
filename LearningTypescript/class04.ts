@@ -53,5 +53,32 @@ const hasBoth = {
 }
 // OK: 'hasBoth'는 'string' 타입의 'firstName'을 포함함
 let WithFirstName: WithFirstName = hasBoth
-// OK: 'hasBoth'는 'string' 타입의 'firstName'을 포함함
+// OK: 'hasBoth'는 'string' 타입의 'lastName'을 포함함
 let WithLastName: WithLastName = hasBoth
+
+// 구조적 타이핑은 덕 타이핑(duck typing)과는 다르다.
+// 덕 타이핑은 '오리처럼 보이고 오리처럼 꽥꽥거리면, 오리일 것이다.'라는 문구에서 유래했다.
+
+// - 타입스크립트의 타입 검사기에서 구조적 타이핑은 정적 시스템이 타입을 검사하는 경우이다.
+// - 덕 타이핑은 런타임에서 사용될 때까지 객체 타입을 검사하지 않는 것을 말한다.
+
+// 요약하면 자바스크립트는 덕 타입인 반면, 타입스크립트는 구조적으로 타입화이다.
+
+// 4.2.1 사용검사
+// 객체 타입으로 애너테이션된 위치에 값을 제공할 때 타입스크립트는 값을 해당 객체 타입에 할당할 수 있는지 확인한다.
+// 할당하는 값에는 객체 타입의 필수 속성이 있어야 한다.
+// 객체 타입에 필요한 멤버가 객체에 없다면 타입스크립트는 타입 오류를 발생시킨다.
+
+type FirstAndLastName = {
+    first: string
+    last: string
+}
+
+// OK
+const hasBoth: FirstAndLastName = {
+    first: 'Sarojini',
+    last: 'Naidu',
+}
+const hasOnlyOne: FirstAndLastName = {
+    first: 'Sappho',
+}
