@@ -82,3 +82,65 @@ const hasBoth: FirstAndLastName = {
 const hasOnlyOne: FirstAndLastName = {
     first: 'Sappho',
 }
+// 4.2.2 초과 속성 검사
+// 변수가 객체 타입으로 선언되고, 초깃값에 객체 타입에서 정의된 것보다 많은 필드가 있다면
+// 타입스크립트에서 타입 오류가 발생한다. 따라서 변수를 객체 타입으로 선언하는 것은 타입검사기가 해당 타입에 예상되는 필드만 있는지 확인하는 방법이기도 하다.
+
+type Poet = {
+    born: number
+    name: string
+}
+
+// OK: Poet의 필드와 일치함
+const poetMatch: Poet = {
+    born: 1928,
+    name: 'Maya Angelou',
+}
+const extraProperty: Poet = {
+    activity: 'walking',
+    born: 1935,
+    name: 'Mary Oliver',
+}
+// 초과 속성검사는 객체 타입으로 선언된 위치에서 생성되는 객체 리터럴에 대해서만 일어난다.
+// 기존 객체 리터럴을 제공하면 초과 속성 검사를 우회한다.
+
+const existingObject = {
+    activity: 'walking',
+    born: 1935,
+    name: 'Mary Oliver',
+}
+
+const extraPropertyButOk: Poet = existingObject // OK
+
+// 4.2.3 중첩된 객체 타입
+// 자바스크립트 객체는 다른 객체의 멤버로 중첩될 수 있으므로, 타입스크립트의 객체 타입도 타입 시스템에서 중첩된 객체 타입을 나타낼 수 있어야 한다.
+// 이를 구현하는 구문은 이전과 동일하지만 기본 이름 대신에 { ... } 객체 타입을 사용한다.
+
+type Poem = {
+    author: {
+        firstName: string
+        lastName: string
+    }
+    name: string
+}
+
+// OK
+const poemMatch: Poem = {
+    author: {
+        firstName: 'Sylvia',
+        lastName: 'Plath',
+    },
+    name: 'Lady Lazarus',
+}
+const poemMissMatch: Poem = {
+    author: {
+        name: 'Sylvia Plath',
+    },
+    name: 'Tulips',
+}
+
+// 4.3 객체 타입 유니언
+// 4.3.1 유추된 객체 타입 유니언
+// 변수에 여러 객체 타입 중 하나가 될 수 있는 초깃값이 주어지면 타입스크립트는 해당 타입을 객체 타입 유니언으로 유추한다.
+// 유니언 타입은 가능한 각 객체 타입을 구성하고 있는 요소를 모두 가질 수 있다.
+// 객체 타입에 정의된 각각의 가능한 속성은 비록 초깃값이 없는 선택적(?)타입이지만 각 객체 타입의 구성 요소로 주어진다.
