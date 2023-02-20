@@ -37,3 +37,21 @@ poetLater2 = 'Emily Dickinson' // 'string' 형식은 'Poet' 형식에 할당할 
 
 // 4.2 구조적 타이핑
 // 타입스크립트의 타입 시스템은 '구조적으로 타입화' 되어 있다. 즉, 타입을 충족하는 모든 값을 해당 타입의 값으로 사용할 수 있다.
+// 다시 말하자면, 매개변수나 변수가 특정 객체 타입으로 선언되면 타입스크립트에 어떤 객체를 사용하든 해당 속성이 있어야 한다고 말해야한다.
+
+type WithFirstName = {
+    firstName: string
+}
+
+type WithLastName = {
+    lastName: string
+}
+
+const hasBoth = {
+    firstName: 'Lucille',
+    lastName: 'Clifton',
+}
+// OK: 'hasBoth'는 'string' 타입의 'firstName'을 포함함
+let WithFirstName: WithFirstName = hasBoth
+// OK: 'hasBoth'는 'string' 타입의 'firstName'을 포함함
+let WithLastName: WithLastName = hasBoth
