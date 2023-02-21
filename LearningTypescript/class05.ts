@@ -59,3 +59,15 @@ announceSong('Chandelier', 'Sia') // OK
 // 선택적 매개변수는 항상 암묵적으로 undefined가 될 수 있다.
 // 이전 코드에서 singer는 string | undefined 타입으로 시작한 후 if 문에 따라 string 타입으로 좁혀진다.
 // 선택적 매개변수는 | undefined를 포함하는 유니언 타입 매개변수와는 다르다. ?으로 표시된 선택적 매개변수가 아닌 매개변수는 값이 명시적으로 undefined 일지라도 항상 제공되어야 한다.
+
+function announceSongBy(song: string, singer: string | undefined) {
+    /* ... */
+}
+announceSongBy('Greensleeves') // singer의 인수가 제공되지 않아서 에러 표시
+announceSongBy('Greensleeves', undefined) // OK
+announceSongBy('Chandelier', 'Sia') // OK
+
+// 함수에서 사용되는 모든 선택적 매개변수는 마지막 매개변수여야 한다.
+// 필수 매개변수 전에 선택적 매개변수를 위치시키면 다음과 같이 타입스크립트 구문 오류가 발생한다.
+
+function announceSinger(singer?: string, song: string) {} // 필수 매개변수는 선택적 매개변수 뒤에 올 수 없다.
