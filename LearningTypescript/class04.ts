@@ -218,3 +218,72 @@ poem2.type // 타입: 'pages' | 'rhymes'
 // 판별된 유니언은 우아한 자바스크립트 패턴과 타입스크립트의 타입 내로잉을 아름답게 결합한다.
 
 // 4.4 교차 타입
+// 타입스크립트 유니언 타입은 둘 이상의 다른 타입 중 하나의 타입이 될 수 있음을 나타낸다.
+// 자바스크립트의 런타임 | 연산자가 & 연산자에 대응하는 역할을 하는 것처럼, 타입스크립트에서도 '& 교차타입'을 사용해 여러 타입을 동시에 나타낸다.
+// 교차 타입은 잉ㄹ반적으로 여러 기존 객체 타입을 별치 객체 타입으로 결합해 새로운 타입을 생성한다.
+
+type Artwork = {
+    genre: string
+    name: string
+}
+type Writing = {
+    pages: number
+    name: string
+}
+type WrittenArt = Artwork & Writing
+// WrittenArt는 다음과 같다.
+// {
+//     genre: string
+//     name: string
+//     pages: numbe
+// }
+
+// 교차 타입은 유니언 타입과 결합할 수 있으며, 이는 하나의 타입으로 판별된 유니언 타입을 설명하는 데 유용하다.
+// ShortPoem 타입은 항상 author 속성을 가지며 하나의 type 속성으로 판별된 유니언 타입이다.
+type ShortPoem = { author: string } & (
+    | {
+          kigo: string
+          type: 'haiku'
+      }
+    | {
+          meter: number
+          type: 'villanelle'
+      }
+)
+
+// OK
+const morningGlory: ShortPoem = {
+    author: 'FuKuda Chiyo-ni',
+    kigo: 'Morning Glory',
+    type: 'haiku',
+}
+const oneArt: ShortPoem = {
+    author: 'Elizabeth Bishop',
+    type: 'villanelle',
+}
+
+// 4.4.1 교차 타입의 위험성
+// 교차타입은 유용한 개념이지만, 작성자 및 타입스크립트 컴파일러를 혼동시키는 방식으로 사용하기 쉽다.
+// 교차 타입을 사용할 때는 가능한 한 코드를 간결하게 유지해야 한다.
+
+// 긴 할당 가능성 오류
+type ShortPoemBase = { author: string }
+type Haiku = ShortPoemBase & {
+    kigo: string
+    type: 'haiku'
+}
+type Villanelle = ShortPoemBase & {
+    meter: number
+    type: 'villanelle'
+}
+type ShortPoem2 = Haiku | Villanelle
+
+const oneArt2: ShortPoem2 = {
+    author: 'Elizabeth Bishop',
+    type: 'villanelle',
+}
+
+// never
+// 교차 타입은 잘못 사용하기 쉽고 불가능한 타입을 생성한다.
+// 원시 타입의 값은 동시에 여러 타압이 될 수 없기 때문에 교차 타입의 구성 요소로 함께 결합할 수 없다.
+// 두 개의 원시타입을 함께 시도하면 never 키워드로 표시되는 never 타입이 된다.
