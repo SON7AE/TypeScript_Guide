@@ -157,3 +157,54 @@ function getSongRecordingDate(song: string): Date | undefined {
 
 // 5.3 함수 타입
 // 자바스크립트에서는 함수를 값으로 전달할 수 있다.
+// 즉, 함수를 가지기 위한 매개변수 또는 변수의 타입을 선언하는 방법이 필요하다.
+// 함수타입 구문은 화살표 함수와 유사하지만 함수 본문 대신 타입이 있다.
+// 다음 nothingInGivesString 변수 타입은 매개변수가 없고 string 타입을 반환하는 함수임을 설명한다.
+
+let nothingInGivesString: () => string
+
+// 다음 inputAndOutput 변수 타입은 string[] 매개변수와 count 선택적 매개변수 및 number값을 반환하는 함수임을 설명한다.
+let inputAndOutput: (songs: string[], count?: number) => number
+
+// 함수 타입은 콜백 매개변수(함수로 호출되는 매개변수)를 설명하는 데 자주 사용된다.
+
+// 예를 들어 다음 runOnSongs 함수는 getSongAt 매개변수의 타입을 index: number를 받고 string을 반환하는 함수로 선언했다.
+// getSongAt을 전달하면 해당 타입과 일치하지만, longSong은 매개변수로 number 대신 string을 사용하므로 반환값을 가져오는데 실패한다.
+const songs = ["Juice", "Shake It Off", "What's up"]
+
+function runOnSongs(getSongAt: (index: number) => string) {
+    for (let i = 0; i < songs.length; i += 1) {
+        console.log(getSongAt(i))
+    }
+}
+function getSongAt(index: number) {
+    return `${songs[index]}`
+}
+runOnSongs(getSongAt) // OK
+
+function logSong(song: string) {
+    return `${song}`
+}
+runOnSongs(logSong)
+
+// runOnSongs(logSong)에 대한 오류 메시지는 할당 가능성 오류의 예로 몇 가지 상세한 단계까지 제공한다.
+// 두 함수를 서로 할당할 수 없다는 오류를 출력할 때 타입스크립트는 일반적으로 세 가지 상세한 단계를 제공한다.
+// 각 단계는 다음과 같이 점점 자세한 내용을 담고 있다.
+
+// - 첫 번째 들여쓰기 단계는 두 함수 타입을 출력한다.
+// - 다음 들여쓰기 단계는 일치하지 않는 부분을 지정한다.
+// - 마지막 들여쓰기 단계는 일치하지 않는 부분에 대한 정확한 할당 가능성 오류를 출력한다.
+
+// 5.3.1 함수 타입 괄호
+// 함수타입은 다른 타입이 사용되는 모든 곳에 배치할 수 있다.
+// 여기에는 유니언 타입도 포함된다.
+// 유니언 타입의 애너테이션에서 함수 반환 위치를 나타내거나 유니언 타입을 감싸는 부분을 표시할 때 괄호를 사용한다.
+
+// 타입은 string | undefined 유니언을 반환하는 함수
+let returnStringOrUndefined: () => string | undefined
+
+// 타입은 undefined나 string을 반환하는 함수
+let maybeReturnString: (() => string) | undefined
+
+// 5.3.2 매개변수 타입 추론
+// 매개변수로 사용되는 인라인 함수를 포함하여 작성한 모든 함수에 대해 매개변수를 선언해야 한다면 번거로울 것이다.
