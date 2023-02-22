@@ -214,3 +214,35 @@ singer = function (song) {
     // song: string의 타입
     return `Singing: ${song.toUpperCase()}!` // OK
 }
+
+// 함수를 매개변수로 갖는 함수에 인수로 전달된 함수는 해당 매개변수 타입도 잘 유추할 수 있다.
+// 예를 들어 다음 song과 index 매개변수는 타입스크립트에 따라 각각 string과 number로 유추된다.
+const songs = ["Call Me", "Jolene", "The Chain"]
+// song: string
+// index: number
+songs.forEach((song, index) => {
+    console.log(`${song} is at index ${index}`)
+})
+
+// 5.3.3 함수 타입 별칭
+type StringToNumber = (input: string) => number
+
+let stringToNumber: StringToNumber
+stringToNumber = (input) => input.length // OK
+stringToNumber = (input) => input.toUpperCase() // 'string' 형식은 'number' 형식에 할당할 수 없습니다.
+
+// 비슷하게 함수 매개변수도 함수 타입을 참조하는 별칭을 입력할 수 있다.
+// 다음 useNumberToString 함수는 함수 타입 별칭인 NumberToString의 단일 매개변수를 갖는다.
+type NumberToString = (input: number) => string
+
+function usesNumberToString(numberToString: NumberToString) {
+    console.log(`The string is: ${numberToString(1234)}`)
+}
+usesNumberToString((input) => `${input}! Hooray`) // OK
+usesNumberToString((input) => input * 2) // 'number' 형식은 'string' 형식에 할당할 수 없습니다.
+
+// 타입 별칭은 특히 함수 타입에 유용하다.
+// 타입 별칭을 이용하면 반복적으로 작성하는 매개변수와 반환 타입을 갖는 코드 공간을 많이 절약할 수 있다.
+
+// 5.4 그 외 반환 타입
+// 지금부터 void와 never, 두 반환 타입에 대해 알아보자.
