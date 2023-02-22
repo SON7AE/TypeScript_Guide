@@ -208,3 +208,9 @@ let maybeReturnString: (() => string) | undefined
 
 // 5.3.2 매개변수 타입 추론
 // 매개변수로 사용되는 인라인 함수를 포함하여 작성한 모든 함수에 대해 매개변수를 선언해야 한다면 번거로울 것이다.
+// 다행히도 타입스크립트는 선언된 타입의 위치에 제공된 함수의 매개변수 타입을 유추할 수 있다.
+let singer: (song: string) => string
+singer = function (song) {
+    // song: string의 타입
+    return `Singing: ${song.toUpperCase()}!` // OK
+}
