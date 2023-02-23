@@ -2,7 +2,7 @@
 // 자바스크립트 배열은 매우 유연하고 내부에 모든 타입의 값을 혼합해서 저장할 수 있다.
 
 const elements = [true, null, undefined, 42]
-elements.push("even", ["more"])
+elements.push('even', ['more'])
 // elements 배열의 값 : [true, null, undefined, 42, "even", ["more"]]
 
 // 그러나 대부분의 개별 자바스크립트 배열은 하나의 특정 타입의 값만 가진다.
@@ -12,9 +12,9 @@ elements.push("even", ["more"])
 // 이런 방식으로 배열의 데이터 타입을 하나로 유지시킨다.
 
 // 다음 예제에서 타입스크립트 warriors 배열이 초기에 string 타입의 값을 포함한다는 것을 알고 있으므로 이후 string 타입의 값 추가는 허용하지만 다른 데이터 타입추가는 허용하지 않는다.
-const warriors = ["Artemisia", "Boudica"]
+const warriors = ['Artemisia', 'Boudica']
 
-warriors.push("Zenobia") // OK : "Zenobia"의 타입은 string
+warriors.push('Zenobia') // OK : "Zenobia"의 타입은 string
 warriors.push(true) // 'boolean' 형식의 인수는 'string' 형식의 매개 변수에 할당될 수 없습니다.
 
 // 타입스크립트가 초기 배열에 담긴 요소를 통해 배열의 타입을 유추하는 방법은 변수의 초깃값에서 변수 타입을 유추하는 방법과 유사하다.
@@ -70,7 +70,7 @@ let arrayOfStringOrNumbers: (string | number)[]
 let values = []
 
 // 타입: string[]
-values.push("")
+values.push('')
 
 // 타입: (number | string)[]
 values[0] = 0
@@ -92,7 +92,7 @@ arrayOfArrayOfNumbers = [
 // 타입스크립트는 배열의 멤버를 찾아서 해당 배열의 타입 요소를 되돌려주는 전형적인 인덱스 기반 접근 방식을 이해하는 언어이다.
 // 다음 defenders 배열은 string[] 타입이므로 defender는 string 타입이다.
 
-const defenders = ["Clarenza", "Dina"]
+const defenders = ['Clarenza', 'Dina']
 
 // 타입 string
 const defender = defenders[0]
@@ -100,7 +100,7 @@ const defender = defenders[0]
 // 유니언 타입으로 된 배열의 멤버는 그 자체로 동일한 유니언 타입이다.
 // 다음 solidersOrDates는 (string | Date)[] 타입이므로 solidierOrDate 변수는 string | Date 타입이다.
 
-const solidersOrDates = ["Deborah Sampson", new Date(1782, 6, 3)]
+const solidersOrDates = ['Deborah Sampson', new Date(1782, 6, 3)]
 // 타입: string | Date
 const solidersOrDate = solidersOrDates[0]
 
@@ -114,7 +114,7 @@ const solidersOrDate = solidersOrDates[0]
 function withElements(elements: string[]) {
     console.log(elements[9001].length) // 타입 오류 없음
 }
-withElements(["It's", "over"])
+withElements(["It's", 'over'])
 
 // 타입스크립트에는 배열 조화를 더 제한하고 타입을 안전하게 만드는 noUncheckedIndexedAccess 플래그가 있지만 이 플래그는 매우 엄격해서 대부분의 프로젝트에서 사용하지 않는다.
 // 이 책에서 플래그에 대해서는 다루지 않는다.
@@ -133,7 +133,7 @@ withElements(["It's", "over"])
 // 다음 conjoined 배열은 string 타입과 number 타입 값을 모두 포함하므로 (string | number)[] 타입으로 유추된다.
 
 // 타입: string[]
-const soldiers = ["Harriet Tubman", "Joan of Arc", "Khutulun"]
+const soldiers = ['Harriet Tubman', 'Joan of Arc', 'Khutulun']
 
 // 타입: number[]
 const soldierAges = [90, 19, 45]
@@ -151,11 +151,11 @@ function logWarriors(greeting: string, ...names: string[]) {
         console.log(`${greeting}, ${name}`)
     }
 }
-const warriors2 = ["Cathay Williams", "Lozen", "Nzigna"]
-logWarriors("Hello", ...warriors2)
+const warriors2 = ['Cathay Williams', 'Lozen', 'Nzigna']
+logWarriors('Hello', ...warriors2)
 
 const birthYears = [1844, 1840, 1583]
-logWarriors("Born in", ...birthYears) // 'number' 형식의 인수는 'string' 형식의 매개 변수에 할당될 수 없습니다.
+logWarriors('Born in', ...birthYears) // 'number' 형식의 인수는 'string' 형식의 매개 변수에 할당될 수 없습니다.
 
 // 6.4 튜플
 // 자바스크립트 배열은 이론상 어떤 크기라도 될 수 있다.
@@ -167,8 +167,8 @@ logWarriors("Born in", ...birthYears) // 'number' 형식의 인수는 'string' �
 
 let yearAndWarrior: [number, string]
 
-yearAndWarrior = [530, "Tomyris"] // OK
-yearAndWarrior = [false, "Tomyris"] // 'boolean' 형식은 'number' 형식에 할당할 수 없습니다.
+yearAndWarrior = [530, 'Tomyris'] // OK
+yearAndWarrior = [false, 'Tomyris'] // 'boolean' 형식은 'number' 형식에 할당할 수 없습니다.
 yearAndWarrior = [530] // '[number]' 형식은 '[number, string]' 형식에 할당할 수 없습니다. 소스에 1개 요소가 있지만, 대상에 2개가 필요합니다.
 
 // 자바스크립트에서는 단일 조건을 기반으로 두 개의 변수에 초깃값을 설정하는 것처럼 한 번에 여러 값을 할당하기 위해 튜플과 배열 구조 분해 할당을 함께 자주 사용한다.
@@ -176,7 +176,7 @@ yearAndWarrior = [530] // '[number]' 형식은 '[number, string]' 형식에 할�
 
 // year 타입: number
 // warrior 타입: string
-let [year, warrior] = Math.random() > 0.5 ? [340, "Archidamia"] : [1828, "Rani of Jhansi"]
+let [year, warrior] = Math.random() > 0.5 ? [340, 'Archidamia'] : [1828, 'Rani of Jhansi']
 
 // 6.4.1 튜플 할당 가능성
 // 타입스크립트에서 튜플 타입은 가변 길이의 배열 타입보다 더 구체적으로 처리된다.
@@ -188,3 +188,59 @@ let [year, warrior] = Math.random() > 0.5 ? [340, "Archidamia"] : [1828, "Rani o
 // 타입: (boolean | number)[]
 const pairLoose = [false, 123]
 const pairTupleLoose: [boolean, number] = pairLoose
+
+// pairLoose가 [boolean, number] 자체로 선언된 경우 pairTupleLoose에 대한 값 할당이 허용되었을 것이다.
+// 하지만 타입스크립트는 튜플 타입의 튜플에 얼마나 많은 멤버가 있는지 알고 있기 때문에 길이가 다른 튜플은 서로 할당할 수 없다.
+
+// 다음 tupleTwoExtra는 정확히 두 개의 멤버를 가져야 하므로 tupleThree가 올바른 멤버로 시작하더라도 세 번째 멤버는 tupleTwoExtra에 할당할 수 없다.
+const tupleThree: [boolean, number, string] = [false, 1583, 'Nzinga']
+const tupleTwoExact: [boolean, number] = [tupleThree[0], tupleThree[1]]
+const tupleTwoExtra: [boolean, number] = tupleThree // '[boolean, number, string]' 형식은 '[boolean, number]' 형식에 할당할 수 없습니다. 소스에 3개 요소가 있지만, 대상에서 2개만 허용합니다.
+
+// 나머지 매개변수로서의 튜플
+// 튜플은 구체적인 길이와 요소 타입 정보를 가지는 배열로 간주되므로 함수에 전달할 인수를 저장하는 데 특히 유용하다.
+// 타입스크립트는 ... 나머지 매개변수로 전달된 튜플에 정확한 타입 검사를 제공할 수 있다.
+
+// logPair 함수의 매개변수는 string과 number로 입력된다.
+// (string | number)[] 타입의 값을 인수로 전달하려고 하면 둘 다 동일한 타입이거나 타입의 잘못된 순서로 인해 내용이 일치하지 않을 가능성이 있어 타입의 안전을 보장할 수 없다.
+// 그러나 값이 [string, number] 튜플이라고 알고 있다면 값이 일치한다는 것을 알게 된다.
+
+function logPair(name: string, value: number) {
+    console.log(`${name} has ${value}`)
+}
+const pairArray = ['Amage', 1]
+logPair(...pairArray)
+
+const pairTupleIncorrect: [number, string] = [1, 'Amage']
+logPair(...pairTupleIncorrect)
+
+const pariTupleCorrect: [string, number] = ['Amage', 1]
+logPair(...pariTupleCorrect)
+
+// 나머지 매개변수 튜플을 사용하고 싶다면 여러 번 함수를 호출하는 인수 목록을 배열에 저장해 함께 사용할 수 있다.
+
+// 6.4.2 튜플 추론
+// 타입스크립트는 생성된 배열을 튜플이 아닌 가변 길이의 배열로 취급한다.
+// 배열이 변수의 초깃값 또는 함수에 대한 반환값으로 사용되는 경우, 고정된 크기의 튜플이 아니라 유연한 크기의 배열로 가정한다.
+// 다음 코드에서 반환된 배열 리터럴 기반으로 타입을 유추해보면 firstCharAndSize 함수는 [string, number]가 아니라 (string | number)[]를 반환하는 것으로 유추된다.
+
+// 반환 타입: (string | number)[]
+function firstCharAndSize(input: string) {
+    return [input[0], input.length]
+}
+// firstChar 타입: string | number
+// size 타입: string | number
+const [firstChar, size] = firstCharAndSize('Gudit')
+
+// 명시적 튜플 타입
+// 함수에 대한 반환 타입 애너테이션처럼 튜플 타입도 애너테이션에 사용할 수 있다.
+// 함수가 튜플 타입을 반환한다고 선언되고, 배열 리터럴을 반환한다면 해당 배열 리터럴은 일반적인 가변 길이의 배열 대신 튜플로 간주된다.
+// firstCharAndSizeExplicit 함수는 string과 number인 튜플을 반환한다고 명백하게 명시되어 있다.
+
+// 반환 타입: [string, number]
+function firstCharAndSizeExplicit(input: string): [string, number] {
+    return [input[0], input.length]
+}
+// firstChar 타입: string
+// size 타입: number
+const [firstChar, size] = firstCharAndSizeExplicit('Cathay Williams')
