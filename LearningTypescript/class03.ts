@@ -185,5 +185,6 @@ console.log(SomeType)
 // 유니언 타입인 타입 별칭 내에 또 다른 유니언 타입인 타입 별칭을 포함하고 있다면 다른 타입 별칭을 참조하는 것이 유용하다.
 
 type Id = number | string
+
 // IdMaybe 타입은 다음과 같음: number | string | undefined | null
 type IdMaybe = Id | undefined | null

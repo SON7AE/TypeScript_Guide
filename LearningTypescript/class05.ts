@@ -313,3 +313,42 @@ function workWithUnsafeParam(param: unknown) {
 }
 
 // 5.5 함수 오버로드
+<<<<<<< HEAD
+=======
+// 일부 자바스크립트 함수는 선택적 매개변수와 나머지 매개변수만으로 표현할 수 없는 매우 다른 매개변수들로 호출될 수 있다.
+// 이러한 함수는 '오버로드 시그니처'라고 불리는 타입스크립트 구문으로 설명할 수 있다.
+// 즉, 하나의 최종 '구현 시그니처'와 그 함수의 본문 앞에 서로 다른 버전의 함수 이름, 매개변수, 반환 타입을 여러 번 선언한다.
+
+// 오버로드된 함수 호출에 대해 구문 오류를 생성할지 여부를 결정할 때 타입스크립트는 함수의 오버로드 시그니처만 확인한다.
+// 구현 시그니처는 함수의 내부 로직에서만 사용된다.
+
+// 다음 createDate 함수는 1개의 timestamp 매개변수 또는 3개의 매개변수(month, day, year)를 사용해 호출한다.
+// 허영된 수의 인수를 사용해 호출할 수 있지만 2개의 인수를 사용해 호출하면 2개의 인수를 허용하는 오버로드 시그니처가 없기 때문에 타입 오류가 발생한다.
+
+function createDate(timestamp: number): Date
+function createDate(month: number, day: number, year: number): Date
+function createDate(monthOrTimestamp: number, day?: number, year?: number) {
+    return day === undefined || year === undefined ? new Date(monthOrTimestamp) : new Date(year, monthOrTimestamp, day)
+}
+
+createDate(554356800) // OK
+createDate(7, 27, 1987) // OK
+createDate(4, 1) // 오버로드에 2 인수가 필요하지 않지만, 1 또는 3 인수가 필요한 오버로드가 있습니다.
+// 되도록 함수 오버레이는 지양한다.
+
+// 5.5.1 호출 시그니처 호환성
+// 오버로드된 함수의 구현에서 사용되는 구현 시그니처는 매개변수 타입과 반환 타입에 사용되는 것과 동일하다.
+// 따라서 함수의 오버로드 시그니처에 있는 반환 타입과 각 매개변수는 구현 시그니처에 있는 동일한 인덱스의 매개변수에 할당할 수 있어야 한다.
+// 즉, 구현 시그니처는 모든 오버로드 시그니처와 호환되어야 한다.
+
+// 다음 format 함수의 구현 시그니처는 첫 번째 매개변수를 string으로 선언한다.
+// 처음 두 개의 오버로드 시그니처는 string 타입과 호환되지만, 세 번째 오버로드 시그니처의 () => string 타입과는 호환되지 않는다.
+
+function format(data: string): string // OK
+function format(data: string, needle: string, haystack: string): string // OK
+function format(getData: () => string): string
+
+function format(data: string, needle?: string, haystack?: string) {
+    return needle && haystack ? data.replace(needle, haystack) : data
+}
+>>>>>>> 91b5be63b935f93e180f7773247c62a0334305ee
