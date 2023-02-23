@@ -313,8 +313,7 @@ function workWithUnsafeParam(param: unknown) {
 }
 
 // 5.5 함수 오버로드
-<<<<<<< HEAD
-=======
+
 // 일부 자바스크립트 함수는 선택적 매개변수와 나머지 매개변수만으로 표현할 수 없는 매우 다른 매개변수들로 호출될 수 있다.
 // 이러한 함수는 '오버로드 시그니처'라고 불리는 타입스크립트 구문으로 설명할 수 있다.
 // 즉, 하나의 최종 '구현 시그니처'와 그 함수의 본문 앞에 서로 다른 버전의 함수 이름, 매개변수, 반환 타입을 여러 번 선언한다.
@@ -351,4 +350,3 @@ function format(getData: () => string): string
 function format(data: string, needle?: string, haystack?: string) {
     return needle && haystack ? data.replace(needle, haystack) : data
 }
->>>>>>> 91b5be63b935f93e180f7773247c62a0334305ee
