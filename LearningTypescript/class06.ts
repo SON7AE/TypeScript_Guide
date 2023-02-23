@@ -170,3 +170,21 @@ let yearAndWarrior: [number, string]
 yearAndWarrior = [530, "Tomyris"] // OK
 yearAndWarrior = [false, "Tomyris"] // 'boolean' 형식은 'number' 형식에 할당할 수 없습니다.
 yearAndWarrior = [530] // '[number]' 형식은 '[number, string]' 형식에 할당할 수 없습니다. 소스에 1개 요소가 있지만, 대상에 2개가 필요합니다.
+
+// 자바스크립트에서는 단일 조건을 기반으로 두 개의 변수에 초깃값을 설정하는 것처럼 한 번에 여러 값을 할당하기 위해 튜플과 배열 구조 분해 할당을 함께 자주 사용한다.
+// 예를 들어 타입스크립트는 다음 코드에서 year는 항상 number이고, warrior는 항상 string임을 인식한다.
+
+// year 타입: number
+// warrior 타입: string
+let [year, warrior] = Math.random() > 0.5 ? [340, "Archidamia"] : [1828, "Rani of Jhansi"]
+
+// 6.4.1 튜플 할당 가능성
+// 타입스크립트에서 튜플 타입은 가변 길이의 배열 타입보다 더 구체적으로 처리된다.
+// 즉, 가변 길이의 배열 타입은 튜플 타입에 할당할 수 없다.
+
+// 다음 코드에서 우리는 pairLoose 내부에 [boolean,number]가 있는 것을 볼 수 있다.
+// 하지만 타입스크립트는 더 일반적인 (boolean | number)[] 타입으로 유추한다.
+
+// 타입: (boolean | number)[]
+const pairLoose = [false, 123]
+const pairTupleLoose: [boolean, number] = pairLoose
