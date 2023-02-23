@@ -27,9 +27,9 @@ function singOne(song: string) {
 function singTwo(first: string, second: string) {
     console.log(`${first} / ${second}`)
 }
-singTwo("Ball and Chain") // 2개의 인수가 필요한데 1개의 인수만 가져왔다.
-singTwo("I Will Survive!", "Higher Love") // OK
-singTwo("Go Your Own Way", "The Chain", "Dreams") // 2개의 인수가 필요한데 3개의 인수를 가져왔다.
+singTwo('Ball and Chain') // 2개의 인수가 필요한데 1개의 인수만 가져왔다.
+singTwo('I Will Survive!', 'Higher Love') // OK
+singTwo('Go Your Own Way', 'The Chain', 'Dreams') // 2개의 인수가 필요한데 3개의 인수를 가져왔다.
 
 // 매개변수는 인수로 받을 것으로 예상되는 함수의 선언을 나타낸다.
 // 인수는 함수를 호출할 때 매개변수에 제공되는 값을 나타낸다.
@@ -52,9 +52,9 @@ function announceSong(song: string, singer?: string) {
         console.log(`Singer: ${singer}`)
     }
 }
-announceSong("Greensleeves") // OK
-announceSong("Greensleeves", undefined) // OK
-announceSong("Chandelier", "Sia") // OK
+announceSong('Greensleeves') // OK
+announceSong('Greensleeves', undefined) // OK
+announceSong('Chandelier', 'Sia') // OK
 
 // 선택적 매개변수는 항상 암묵적으로 undefined가 될 수 있다.
 // 이전 코드에서 singer는 string | undefined 타입으로 시작한 후 if 문에 따라 string 타입으로 좁혀진다.
@@ -63,9 +63,9 @@ announceSong("Chandelier", "Sia") // OK
 function announceSongBy(song: string, singer: string | undefined) {
     /* ... */
 }
-announceSongBy("Greensleeves") // singer의 인수가 제공되지 않아서 에러 표시
-announceSongBy("Greensleeves", undefined) // OK
-announceSongBy("Chandelier", "Sia") // OK
+announceSongBy('Greensleeves') // singer의 인수가 제공되지 않아서 에러 표시
+announceSongBy('Greensleeves', undefined) // OK
+announceSongBy('Chandelier', 'Sia') // OK
 
 // 함수에서 사용되는 모든 선택적 매개변수는 마지막 매개변수여야 한다.
 // 필수 매개변수 전에 선택적 매개변수를 위치시키면 다음과 같이 타입스크립트 구문 오류가 발생한다.
@@ -84,11 +84,11 @@ function announceSinger(singer?: string, song: string) {} // 필수 매개변수
 function rateSong(song: string, rating = 0) {
     console.log(`${song} gets ${rating}/5 stars!`)
 }
-rateSong("Photograph") // OK
-rateSong("Set Fire to the Rain", 5) // OK
-rateSong("Set Fire to the Rain", undefined) // OK
+rateSong('Photograph') // OK
+rateSong('Set Fire to the Rain', 5) // OK
+rateSong('Set Fire to the Rain', undefined) // OK
 
-rateSong("At Last!!", "100") // 두 번째 인자의 타입은 number | undefined 이기 때문에 string 타입은 올 수 없다.
+rateSong('At Last!!', '100') // 두 번째 인자의 타입은 number | undefined 이기 때문에 string 타입은 올 수 없다.
 
 // 5.1.4 나머지 매개변수
 // 자바스크립트의 일부 함수는 임의의 수의 인수로 호출할 수 있도록 만들어진다.
@@ -101,9 +101,9 @@ function singAllTheSongs(singer: string, ...songs: string[]) {
     }
 }
 
-singAllTheSongs("Alicia Keys") // OK
-singAllTheSongs("Lady Gaga", "Bad Romance", "Just Dance", "Poker Face") // OK
-singAllTheSongs("Ella Fitzgerald", 2000) // 'number' 형식의 인수는 'string' 형식의 매개 변수에 할당될 수 없습니다.
+singAllTheSongs('Alicia Keys') // OK
+singAllTheSongs('Lady Gaga', 'Bad Romance', 'Just Dance', 'Poker Face') // OK
+singAllTheSongs('Ella Fitzgerald', 2000) // 'number' 형식의 인수는 'string' 형식의 매개 변수에 할당될 수 없습니다.
 
 // 5.2 반환 타입
 // 타입스크립트는 지각적이다. 함수가 반환할 수 있는 가능한 모든 값을 이해하면 함수가 반환하는 타입을 알 수 있다.
@@ -146,10 +146,10 @@ const singSongRecursive2 = (songs: string[], count = 0): number => (songs.length
 // 다음 getSongRecordingDate 함수는 Date | undefined를 반환하도록 명시적으로 선언되었지만, 반환문 중 하나가 string을 반환하도록 잘못 제공하고 있다.
 function getSongRecordingDate(song: string): Date | undefined {
     switch (song) {
-        case "Strange Fruit":
-            return new Date("April 20, 1939")
-        case "GreensLeeves":
-            return "unknown" //'string' 형식은 'Date' 형식에 할당할 수 없습니다.
+        case 'Strange Fruit':
+            return new Date('April 20, 1939')
+        case 'GreensLeeves':
+            return 'unknown' //'string' 형식은 'Date' 형식에 할당할 수 없습니다.
         default:
             return undefined // OK
     }
@@ -170,7 +170,7 @@ let inputAndOutput: (songs: string[], count?: number) => number
 
 // 예를 들어 다음 runOnSongs 함수는 getSongAt 매개변수의 타입을 index: number를 받고 string을 반환하는 함수로 선언했다.
 // getSongAt을 전달하면 해당 타입과 일치하지만, longSong은 매개변수로 number 대신 string을 사용하므로 반환값을 가져오는데 실패한다.
-const songs = ["Juice", "Shake It Off", "What's up"]
+const songs = ['Juice', 'Shake It Off', "What's up"]
 
 function runOnSongs(getSongAt: (index: number) => string) {
     for (let i = 0; i < songs.length; i += 1) {
@@ -217,7 +217,7 @@ singer = function (song) {
 
 // 함수를 매개변수로 갖는 함수에 인수로 전달된 함수는 해당 매개변수 타입도 잘 유추할 수 있다.
 // 예를 들어 다음 song과 index 매개변수는 타입스크립트에 따라 각각 string과 number로 유추된다.
-const songs = ["Call Me", "Jolene", "The Chain"]
+const songs = ['Call Me', 'Jolene', 'The Chain']
 // song: string
 // index: number
 songs.forEach((song, index) => {
@@ -268,7 +268,7 @@ let songLogger: (song: string) => void
 songLogger = (song) => {
     console.log(`${song}`)
 }
-songLogger("Heart of Glass") // OK
+songLogger('Heart of Glass') // OK
 
 // 자바스크립트 함수는 실젯값이 반환되지 않으면 기본으로 모두 undefined를 반환하지만 void는 undefined와 동일하지 않다.
 // void는 함수의 반환 타입이 무시된다는 것을 의미하고 undefined는 반환되는 리터럴 값이다.
@@ -291,7 +291,7 @@ const records: string[] = []
 function saveRecords(newRecords: string[]) {
     newRecords.forEach((record) => records.push(record))
 }
-saveRecords(["21", "Come On Over", "The Bodyguard"])
+saveRecords(['21', 'Come On Over', 'The Bodyguard'])
 
 // void 타입은 자바스크립트가 아닌 함수의 반환 타입을 선언하는데 사용하는 타입스크립트 키워드이다.
 // void 타입은 함수의 반환값이 자체적으로 반환될 수 있는 값도 아니고, 사용하기 위한 것도 아니라는 표시임을 기억하자.
@@ -305,9 +305,11 @@ function fail(message: string): never {
     throw new Error(`Invariant failure: ${message}`)
 }
 function workWithUnsafeParam(param: unknown) {
-    if (typeof param !== "string") {
+    if (typeof param !== 'string') {
         fail(`param should be a string, not ${typeof param}`)
     }
     // 여기에서 param의 타입은 string으로 알려진다.
     param.toUpperCase() // OK
 }
+
+// 5.5 함수 오버로드
