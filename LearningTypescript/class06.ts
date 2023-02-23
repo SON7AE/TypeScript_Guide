@@ -105,3 +105,68 @@ const solidersOrDates = ["Deborah Sampson", new Date(1782, 6, 3)]
 const solidersOrDate = solidersOrDates[0]
 
 // 6.2.1 주의 사항: 불안정한 멤버
+// 타입스크립트 타입 시스템은 기술적으로 불안정하다고 알려져 있다.
+// 대부분 올바른 타입을 얻을 수 있지만, 때때로 값 타입에 대한 티입 시스템의 이해가 올바르지 않을 수 있다.
+// 특히 배열은 타입 시스템에서 불안정한 소스이다.
+// 기본적으로 타입스크립트는 모든 배열의 멤버에 대한 접근이 해당 배열의 멤벌르 반환한다고 가정하지만, 자바스크립트에서조차도 배열의 길이보다 큰 인덱스로 배열 요소에 접근하면 undefined를 제공한다.
+
+// 다음 코드는 타입스크립트 컴파일러의 기본 설정에서 오류를 표시하지 않는다.
+function withElements(elements: string[]) {
+    console.log(elements[9001].length) // 타입 오류 없음
+}
+withElements(["It's", "over"])
+
+// 타입스크립트에는 배열 조화를 더 제한하고 타입을 안전하게 만드는 noUncheckedIndexedAccess 플래그가 있지만 이 플래그는 매우 엄격해서 대부분의 프로젝트에서 사용하지 않는다.
+// 이 책에서 플래그에 대해서는 다루지 않는다.
+
+// 6.3 스프레드와 나머지 매개변수
+// ... 연산자를 사용하는 나머지 매개변수와 배열 스프레드는 자바스크립트에서 배열과 상호작용하는 핵심방법이다.
+// 타입스크립트는 두 방법을 모두 이해한다.
+
+// 6.3.1 스프레드
+// ... 스프레드 연산자를 사용해 배열을 결합한다.
+// 타입스크립트는 입력된 배열 중 하나의 값이 결과 배열에 포함될 것임을 이해한다.
+
+// 만약 입력된 배열이 동일한 타입이라면 출력 배열도 동일한 타입이다.
+// 서로 다른 타입의 두 배열을 함께 스프레드해 새 배열을 생성하면 새 배열은 두 개의 원래 타입 중 어느 하나의 요소인 유니언 타입 배열로 이해된다.
+
+// 다음 conjoined 배열은 string 타입과 number 타입 값을 모두 포함하므로 (string | number)[] 타입으로 유추된다.
+
+// 타입: string[]
+const soldiers = ["Harriet Tubman", "Joan of Arc", "Khutulun"]
+
+// 타입: number[]
+const soldierAges = [90, 19, 45]
+
+// 타입: (string | number)[]
+const conjoined = [...soldiers, ...soldierAges]
+
+// 6.3.2 나머지 매개변수 스프레드
+// 타입스크립트는 나머지 매개변수로 배열을 스프레드하는 자바스크립트 실행을 인식하고 이에 대해 타입 검사를 수행한다.
+
+// 다음 logWarriors 함수는 ...names 나머지 매개변수로 string 값만 받는다.
+// string[] 타입 배열을 스프레드하는 것은 허용되지만 number[]는 허용되지 않는다.
+function logWarriors(greeting: string, ...names: string[]) {
+    for (const name of names) {
+        console.log(`${greeting}, ${name}`)
+    }
+}
+const warriors2 = ["Cathay Williams", "Lozen", "Nzigna"]
+logWarriors("Hello", ...warriors2)
+
+const birthYears = [1844, 1840, 1583]
+logWarriors("Born in", ...birthYears) // 'number' 형식의 인수는 'string' 형식의 매개 변수에 할당될 수 없습니다.
+
+// 6.4 튜플
+// 자바스크립트 배열은 이론상 어떤 크기라도 될 수 있다.
+// 하지만 때로는 튜플이라고 하는 고정된 크기의 배열을 사용하는 것이 유용하다.
+// 튜플 배열은 각 인덱스에 알려진 특정 타입을 가지며 배열의 모든 가능한 멤버를 갖는 유니언 타입보다 더 구체적이다.
+// 튜플 타입을 선언하는 구문은 배열 리터럴처럼 보이지만 요소의 값 대신 타입을 적는다.
+
+// yearAndWarrior 배열은 인덱스 0에 number 타입 값을 갖고, 인덱스 1에 string 값을 갖는 튜플 타입으로 선언되었다.
+
+let yearAndWarrior: [number, string]
+
+yearAndWarrior = [530, "Tomyris"] // OK
+yearAndWarrior = [false, "Tomyris"] // 'boolean' 형식은 'number' 형식에 할당할 수 없습니다.
+yearAndWarrior = [530] // '[number]' 형식은 '[number, string]' 형식에 할당할 수 없습니다. 소스에 1개 요소가 있지만, 대상에 2개가 필요합니다.
