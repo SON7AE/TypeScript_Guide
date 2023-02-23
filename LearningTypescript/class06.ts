@@ -68,3 +68,40 @@ let arrayOfStringOrNumbers: (string | number)[]
 
 // 타입 any[]
 let values = []
+
+// 타입: string[]
+values.push("")
+
+// 타입: (number | string)[]
+values[0] = 0
+
+// 변수와 마찬가지로 배열이 any 타입이 되도록 허용하거나 일반적으로 any 타입을 사용하도록 허용하면 타입스크립트의 타입 검사 목적을 부분적으로 무효화한다.
+// 타입스크립트는 값의 타입을 알 때 가장 잘 작동한다.
+
+// 6.1.4 다차원 배열
+// 2차원 배열 또는 배열의 배열은 두 개의 [](대괄호)를 갖는다.
+let arrayOfArrayOfNumbers: number[][]
+
+arrayOfArrayOfNumbers = [
+    [1, 2, 3],
+    [4, 5, 6],
+    [7, 8, 9],
+]
+
+// 6.2 배열 멤버
+// 타입스크립트는 배열의 멤버를 찾아서 해당 배열의 타입 요소를 되돌려주는 전형적인 인덱스 기반 접근 방식을 이해하는 언어이다.
+// 다음 defenders 배열은 string[] 타입이므로 defender는 string 타입이다.
+
+const defenders = ["Clarenza", "Dina"]
+
+// 타입 string
+const defender = defenders[0]
+
+// 유니언 타입으로 된 배열의 멤버는 그 자체로 동일한 유니언 타입이다.
+// 다음 solidersOrDates는 (string | Date)[] 타입이므로 solidierOrDate 변수는 string | Date 타입이다.
+
+const solidersOrDates = ["Deborah Sampson", new Date(1782, 6, 3)]
+// 타입: string | Date
+const solidersOrDate = solidersOrDates[0]
+
+// 6.2.1 주의 사항: 불안정한 멤버
