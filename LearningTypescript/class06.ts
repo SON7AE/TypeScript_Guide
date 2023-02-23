@@ -244,3 +244,19 @@ function firstCharAndSizeExplicit(input: string): [string, number] {
 // firstChar 타입: string
 // size 타입: number
 const [firstChar, size] = firstCharAndSizeExplicit('Cathay Williams')
+
+// const 어서션
+// 명시적 타입 애너테이션에 튜플 타입을 입력하는 작업은 명시적 타입 애너테이션을 입력할 때와 동일한 이유로 고통스러울 수 있다.
+// 즉, 코드 변경에 따라 작성 및 수정이 필요한 구문을 추가해야 한다.
+
+// 하지만 그 대안으로 타입스크립트는 값 뒤에 넣을 수 있는 const 어서션인 as const 연산자를 제공한다.
+// const 어서션은 타입스크립트에 타입을 유추할 때 읽기 전용이 가능한 값 형식을 사용하도록 지시한다.
+
+// 다음과 같이 배열 리터럴 뒤에 as const가 배치되면 배열이 튜플로 처리되어야 함을 나타낸다.
+
+// 타입: (string | number)[]
+const unionArray = [1157, 'Tomoe']
+// 타입: readonly [1157, "Tomoe"]
+const readonlyTuple = [1157, 'Tomoe'] as const
+
+// const 어서션은 유연한 크기의 배열을 고정된 크기의 튜플로 전환하는 것을 넘어서, 해당튜플이 읽기 전용이고 값 수정이 예상되는 곳에서 사용할 수 없음을 나타낸다.
