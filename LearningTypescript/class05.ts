@@ -338,3 +338,14 @@ createDate(4, 1) // 오버로드에 2 인수가 필요하지 않지만, 1 또는
 // 오버로드된 함수의 구현에서 사용되는 구현 시그니처는 매개변수 타입과 반환 타입에 사용되는 것과 동일하다.
 // 따라서 함수의 오버로드 시그니처에 있는 반환 타입과 각 매개변수는 구현 시그니처에 있는 동일한 인덱스의 매개변수에 할당할 수 있어야 한다.
 // 즉, 구현 시그니처는 모든 오버로드 시그니처와 호환되어야 한다.
+
+// 다음 format 함수의 구현 시그니처는 첫 번째 매개변수를 string으로 선언한다.
+// 처음 두 개의 오버로드 시그니처는 string 타입과 호환되지만, 세 번째 오버로드 시그니처의 () => string 타입과는 호환되지 않는다.
+
+function format(data: string): string // OK
+function format(data: string, needle: string, haystack: string): string // OK
+function format(getData: () => string): string
+
+function format(data: string, needle?: string, haystack?: string) {
+    return needle && haystack ? data.replace(needle, haystack) : data
+}
