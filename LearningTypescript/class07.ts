@@ -151,3 +151,49 @@ interface OptionalReadonlyFunctions {
 // - 반대의 경우는 속성 함수를 사용하자.
 
 // 이 두 가지를 혼동하거나 차이점을 이해하지 못한다고 해도 걱정하지 말자. this 스코프와 선택한 방식을 의도하지 않는 한 코드에 거의 영향을 주지 않는다.
+
+// 7.2.4 호출 시그니처
+// 인터페이스와 객체 타입은 호출 시그니처(call signature)로 선언할 수 있다.
+// 호출 시그니처는 값을 함수처럼 호출하는 방식에 대한 타입 시스템의 설명이다. 호출 시그니처가 선언한 방식으로 호출되는 값만 인터페이스에 할당할 수 있다.
+// 즉, 할당 가능한 매개변수와 반환 타입을 가진 함수이다.
+// 호출 시그니처는 함수 타입과 비슷하지만, 콜론(:) 대신 화살표(=>)로 표시한다.
+
+// 다음 FunctionAlias와 CallSignature 타입은 모두 동일한 함수 매개변수와 반환 타입을 설명한다.
+
+type FunctionAlias = (input: string) => number
+
+interface CallSignature {
+    (input: string): number
+}
+
+// 타입: (input: string) => number
+const typeFunctionAlias: FunctionAlias = (input) => input.length // OK
+
+// 타입: (input: string) => number
+const typeCallSignature: CallSignature = (input) => input.length // OK
+
+// 호출 시그니처는 사용자 정의 속성을 추가로 갖는 함수를 설명하는 데 사용할 수 있다.
+// 타입스크립트는 함수 선언에 추가된 속성을 해당 함수 선언의 타입에 추가하는 것으로 인식한다.
+
+// 다음 keepsTrackOfCalls 함수 선언에는 number 타입인 counter 속성이 주어져 FunctionWithCount 인터페이스에 할당할 수 있다.
+// 따라서 FunctionWithCount 타입의 hasCallCount 인수에 할당할 수 있다.
+// 다음 코드의 마지막 함수에는 count 속성이 주어지지 않았다.
+
+interface FunctionWithCount {
+    count: number
+    (): void
+}
+
+let hasCallCount: FunctionWithCount
+
+function keepsTrackOfCalls() {
+    keepsTrackOfCalls.count += 1
+    console.log(`I've been called ${keepsTrackOfCalls.count} times!`)
+}
+keepsTrackOfCalls.count = 0
+hasCallCount = keepsTrackOfCalls // OK
+
+function doesNotHaveCount() {
+    console.log('No idea!!')
+}
+hasCallCount = doesNotHaveCount // 'count' 속성이 '() => void' 형식에 없지만 'FunctionWithCount' 형식에서 필수입니다.
